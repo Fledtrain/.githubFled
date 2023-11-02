@@ -31,7 +31,6 @@ const register = async (req, res) => {
   }
 }
 
-
 const login = async (req, res) => {
   const { email, password } = req.body
 
@@ -62,7 +61,9 @@ const login = async (req, res) => {
     const expires = new Date(Date.now() + 24 * 3600000) // 24 hours
 
     // Send the token to the frontend
-    res.cookie('login_token', token, { httpOnly: true, expires }).sendStatus(200)
+    res
+      .cookie('login_token', token, { httpOnly: true, expires })
+      .sendStatus(200)
   } catch (error) {
     console.error('Something went wrong: ', error)
     res.status(500).json({ message: 'Internal server error' })
